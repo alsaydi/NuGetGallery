@@ -8,6 +8,10 @@
 
 @section TopScripts
 {
+    <meta name="msApplication-ID" content="50582LuanNguyen.NuGetPackageExplorer" />
+    <meta name="msApplication-PackageFamilyName" content="50582LuanNguyen.NuGetPackageExplorer_w6y2tyx5bpzwa" />
+    <meta name="msApplication-Arguments" content="@Model.GetNpeActivationArgument(Url)" />
+
     <link rel="stylesheet" href="@Url.Content("~/Content/jquery.treeview.css")" />
     <link rel="stylesheet" href="@Url.Content("~/Content/SyntaxHighlighter/shCore.css")" />
     <link rel="stylesheet" href="@Url.Content("~/Content/SyntaxHighlighter/shThemeDefault.css")" />
@@ -32,20 +36,27 @@
     <h2>@Model.PackageMetadata.Version</h2>
 </hgroup>
 
+@if (Request.UserAgent.IndexOf("Windows NT 6.2") > -1)
+{ 
+<div id="upsellMessage">
+    It looks like you are browsing from Windows 8. You can open this package in <a href="@Model.GetNpeProtocolUrl(Url)">NuGet Package Explorer</a> for a richer experience.
+</div>
+}
+
 <div id="contentsNav">
     <div><a id="metadataLabel" href="#">Metadata</a></div>
 
     <ul id="packageView" class="filetree treeview-black">
         @Html.TreeView(Model.RootFolder.Children).EmptyContent("This package doesn't contain any file.").Children(p => p.Children).ItemTemplate(
-            @<text>
-        @if (item.IsFile)
-        {
-            <a><span class="file" data-path="@item.Path.Replace('\\', '/')">@item.Name</span></a>
-        }
-        else
-        {
-            <span class="folder">@item.Name</span>
-        }
+        @<text>
+            @if (item.IsFile)
+            {
+                <a><span class="file" data-path="@item.Path.Replace('\\', '/')">@item.Name</span></a>
+            }
+            else
+            {
+                <span class="folder">@item.Name</span>
+            }
         </text>
         )
     </ul>
@@ -238,7 +249,7 @@
 
         function isImage(path) {
             var extension = getEffectiveExtension(path);
-            return extension == 'jpg' || path == 'gif' || extension == 'png';
+            return extension == 'jpg' || path == 'gif' || extension == 'png' || extension == 'bmp' || extension == 'jpeg';
         }
 
         function determineBrush(path) {

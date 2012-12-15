@@ -811,11 +811,15 @@ section.package .side img {
 
 /* Package Contents page */
 
+#upsellMessage {
+    margin: 0px 0px 10px 0px;
+}
+
 #contentsNav {
     float: left;
     width: 28%;
     height: 450px;
-    padding: 5px;
+    padding: 5px 5px 0px 5px;
     margin-bottom: 50px;
     border: 1px solid darkgray;
     overflow: auto;
@@ -825,7 +829,7 @@ section.package .side img {
     font-size: 1.1em;
 }
 
-#metadata .toplabel { 
+#metadata .toplabel {
     vertical-align: top; 
 }
 
