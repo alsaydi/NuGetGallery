@@ -348,13 +348,13 @@
 
                             fileContentContainer.append(preElement);
 
-                            if (data.length < 500) {
-                                // if the data is small (less than 500 characters), don't bother showing progress message
-                                showContentAfterParsing();
+                            if (data.length < 1000) {
+                                // if the data is small (less than 1000 characters), don't bother to show progress message
+                                showContentAfterParsing(preElement);
                             }
                             else {
                                 progressElement.text('Parsing content...');
-                                window.setTimeout(showContentAfterParsing, 10);
+                                window.setTimeout(function () { showContentAfterParsing(preElement) }, 10);
                             }
                         },
 
@@ -365,11 +365,9 @@
             }
         }
 
-        function showContentAfterParsing() {
-            SyntaxHighlighter.highlight();
+        function showContentAfterParsing(preElement) {
+            SyntaxHighlighter.highlight(preElement);
             progressElement.hide();
-
-            $('#fileContentContainer > div').css('position', 'absolute');
             fileContentContainer.show();
         }
 
